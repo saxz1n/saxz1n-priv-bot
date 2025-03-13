@@ -72,4 +72,4 @@ async def close(ctx):
     else:
         await ctx.send("❌ Non puoi chiudere questo canale!")
 
-bot.run(os.getenv("MTM0OTg0OTAyNDUzMzg4OTAyNA.GuHXE6.iHZvBerZOf1KusZP_psYqq9EcJmNQvECmRfTMQ"))  # Usa la variabile d'ambiente per la sicurezza
+bot.run(os.getenv("DISCORD_TOKEN"))  # Usa la variabile d'ambiente per la sicurezza

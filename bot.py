@@ -86,3 +86,11 @@ async def close(ctx):
         await ctx.send("❌ Non puoi chiudere questo canale!")
 
 bot.run(os.getenv("DISCORD_TOKEN"))  # Usa la variabile d'ambiente per la sicurezza
+import threading
+
+def run_flask():
+    app.run(host="0.0.0.0", port=8000)
+
+thread = threading.Thread(target=run_flask)
+thread.start()
+

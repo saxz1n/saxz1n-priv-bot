@@ -7,7 +7,7 @@ intents.members = True  # Necessario per il messaggio di benvenuto
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-TOKEN = os.getenv("MTM0OTg0OTAyNDUzMzg4OTAyNA.GuHXE6.iHZvBerZOf1KusZP_psYqq9EcJmNQvECmRfTMQ")  # Assicura che il token venga preso dall'ambiente
+TOKEN = os.getenv("MTM0OTg0OTAyNDUzMzg4OTAyNA.Gl9K5Z.gcrhL1P5S7-67TXM5vMB0Igz0feFaZK3izMx7g")  # Assicura che il token venga preso dall'ambiente
 
 WELCOME_CHANNEL_ID = 1282123711624773735  # Sostituisci con l'ID del tuo canale di benvenuto
 TICKET_CATEGORY_ID = 1349849328335851540  # Sostituisci con l'ID della categoria dove creare i ticket

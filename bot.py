@@ -1,16 +1,33 @@
 from flask import Flask
-from threading import Thread
+import threading
+import os
+import discord
+from discord.ext import commands
 
-app = Flask('')
+# Avvia Flask per mantenere il bot attivo
+app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Il bot è attivo su Koyeb!"
+    return "Il bot è attivo!"
 
-def run():
-    app.run(host='0.0.0.0', port=8000)
+def run_flask():
+    app.run(host="0.0.0.0", port=8000)
 
-Thread(target=run).start()
+thread = threading.Thread(target=run_flask)
+thread.start()
+
+# Setup del bot Discord
+TOKEN = os.getenv("DISCORD_TOKEN")
+intents = discord.Intents.default()
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"Bot connesso come {bot.user}")
+
+bot.run(TOKEN)
+
 import discord
 from discord.ext import commands
 import os
@@ -93,4 +110,3 @@ def run_flask():
 
 thread = threading.Thread(target=run_flask)
 thread.start()
-

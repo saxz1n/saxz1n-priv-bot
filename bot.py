@@ -24,8 +24,7 @@ flask_thread = threading.Thread(target=run_flask)
 flask_thread.start()
 
 
-intents = discord.Intents.default()
-intents.members = True  
+intents = discord.Intents.all()  
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 

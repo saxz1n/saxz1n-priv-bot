@@ -5,6 +5,9 @@ import threading
 from flask import Flask
 
 # Variabili di configurazione
+from dotenv import load_dotenv
+load_dotenv()
+
 TOKEN = os.getenv("DISCORD_TOKEN")  # Usa variabile d'ambiente per sicurezza
 WELCOME_CHANNEL_ID = 1282123711624773735  # Canale di benvenuto
 TICKET_CATEGORY_ID = 1349849328335851540  # Categoria per i ticket

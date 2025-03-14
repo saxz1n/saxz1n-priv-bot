@@ -33,14 +33,14 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_member_join(member):
     channel = bot.get_channel(WELCOME_CHANNEL_ID)
     if channel:
-        await channel.send(f"👋 Benvenuto {member.mention} nel server!")
+        await channel.send(f"welcome {member.mention}")
 
 # Classe per gestire il pulsante di apertura ticket
 class TicketView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
 
-    @discord.ui.button(label="🎫 Apri un Ticket", style=discord.ButtonStyle.primary, custom_id="open_ticket")
+    @discord.ui.button(label="General", style=discord.ButtonStyle.primary, custom_id="open_ticket")
     async def open_ticket(self, interaction: discord.Interaction, button: discord.ui.Button):
         guild = interaction.guild
         user = interaction.user
@@ -66,13 +66,13 @@ class TicketView(discord.ui.View):
             overwrites=overwrites
         )
 
-        await ticket_channel.send(f"👋 Ciao {user.mention}, il team di supporto ti risponderà al più presto!\nUsa `!close` per chiudere il ticket.")
-        await interaction.response.send_message(f"✅ Ticket aperto: {ticket_channel.mention}", ephemeral=True)
+        await ticket_channel.send(f"{user.mention}, grazie per aver aperto ticket saxz1n sarà subito da te\nUsa `!close` per chiudere il ticket.")
+        await interaction.response.send_message(f"Ticket aperto: {ticket_channel.mention}", ephemeral=True)
 
 # Comando per inviare il messaggio con il pulsante di apertura ticket
 @bot.command()
 async def setup_ticket(ctx):
-    embed = discord.Embed(title="🎟️ Sistema Ticket", description="Clicca sul pulsante qui sotto per aprire un ticket di supporto.", color=discord.Color.blue())
+    embed = discord.Embed(title="Ticket", description="To create a ticket use the button below", color=discord.Color.blue())
     view = TicketView()
     await ctx.send(embed=embed, view=view)
 
@@ -82,6 +82,26 @@ async def close(ctx):
     if ctx.channel.category_id == TICKET_CATEGORY_ID:
         await ctx.channel.delete()
     else:
-        await ctx.send("❌ Non puoi chiudere questo canale!")
+        await ctx.send(" Non puoi chiudere questo canale!")
+
+# Comando per inviare un messaggio pubblicitario con immagine
+@bot.command()
+async def ads(ctx, *, message: str = None):
+    if not message and not ctx.message.attachments:
+        await ctx.send("❌ Devi fornire un messaggio o allegare un'immagine!")
+        return
+
+    embed = discord.Embed(
+        title="📢 Annuncio",
+        description=message if message else " ",
+        color=discord.Color.green()
+    )
+
+    # Se c'è un'immagine allegata, la aggiunge all'embed
+    if ctx.message.attachments:
+        image_url = ctx.message.attachments[0].url
+        embed.set_image(url=image_url)
+
+    await ctx.send(embed=embed)
 
 bot.run(TOKEN)

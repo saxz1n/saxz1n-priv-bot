@@ -86,20 +86,17 @@ async def close(ctx):
 
 @bot.command()
 async def ads(ctx, *, message: str = None):
-    if not message and not ctx.message.attachments:
-        await ctx.send("❌ Devi fornire un messaggio o allegare un'immagine!")
+    """Invia un messaggio normale con supporto per testo e immagini"""
+    if message is None and not ctx.message.attachments:
+        await ctx.send(" Devi scrivere un messaggio o allegare un'immagine!")
         return
 
-    embed = discord.Embed(
-        title="📢 Annuncio",
-        description=message if message else " ",
-        color=discord.Color.green()
-    )
-
+    
     if ctx.message.attachments:
-        image_url = ctx.message.attachments[0].url
-        embed.set_image(url=image_url)
+        for attachment in ctx.message.attachments:
+            await ctx.send(message if message else "", file=await attachment.to_file())
+    else:
+        await ctx.send(message)
 
-    await ctx.send(embed=embed)
 
 bot.run(TOKEN)

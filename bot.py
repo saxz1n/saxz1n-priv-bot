@@ -86,17 +86,21 @@ async def close(ctx):
 
 @bot.command()
 async def ads(ctx, *, message: str = None):
-    """Invia un messaggio normale con supporto per testo e immagini"""
+    """Invia un messaggio normale e cancella il comando dell'utente"""
+    
+
+    await ctx.message.delete()
+    
+
     if message is None and not ctx.message.attachments:
-        await ctx.send(" Devi scrivere un messaggio o allegare un'immagine!")
+        await ctx.send("❌ Devi scrivere un messaggio o allegare un'immagine!")
         return
 
-    
+
     if ctx.message.attachments:
         for attachment in ctx.message.attachments:
             await ctx.send(message if message else "", file=await attachment.to_file())
     else:
         await ctx.send(message)
-
 
 bot.run(TOKEN)
